@@ -1,0 +1,28 @@
+create table dou_tabla_final_tiempos as
+
+with cruce_p as (
+    select
+    t1.name as orden_pdc,
+    t1.origin,
+    t1.project_id,
+    t1.state,
+    t1.date_start_per,
+    TO_CHAR(t1.date_start_per, 'YYYY-MM') AS mes_inicio,
+    (t1.date_start_per >= CURRENT_DATE - INTERVAL '7 days' AND t1.date_start <= CURRENT_DATE) AS iniciado_semana,    
+    t1.date_finished,
+    TO_CHAR(t1.date_finished, 'YYYY-MM') AS mes_fin,
+    (t1.date_finished >= CURRENT_DATE - INTERVAL '7 days' AND t1.date_finished <= CURRENT_DATE) AS terminado_semana,      
+    t1.create_date,
+    TO_CHAR(t1.create_date, 'YYYY-MM') AS mes_creacion,
+    (t1.create_date >= CURRENT_DATE - INTERVAL '7 days' AND t1.create_date <= CURRENT_DATE) AS creado_semana,                    
+    t1.sale_order_id,
+    t2.name as nombre_fabricante,
+    t4.name->>'es_ES' as producto
+    from mrp_production t1
+    left join hr_employee t2 on t1.employee_id=t2.id
+    left join product_product t3 ON t1.product_id = t3.id
+    left join product_template t4 ON t3.product_tmpl_id = t4.id
+)
+select * from cruce_p
+
+ 
