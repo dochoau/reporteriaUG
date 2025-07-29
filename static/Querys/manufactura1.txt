@@ -17,7 +17,10 @@ with cruce_p as (
     (t1.create_date >= CURRENT_DATE - INTERVAL '7 days' AND t1.create_date <= CURRENT_DATE) AS creado_semana,                    
     t1.sale_order_id,
     t2.name as nombre_fabricante,
-    t4.name->>'es_ES' as producto
+    t4.name->>'es_ES' as producto,
+    t4.tipo_proceso as tipo_producto,
+    working_hours_diff(t1.date_start_per, t1.date_finished) as horas_fabricacion,
+    working_hours_diff(t1.create_date, t1.date_start_per) as horas_crea_ini
     from mrp_production t1
     left join hr_employee t2 on t1.employee_id=t2.id
     left join product_product t3 ON t1.product_id = t3.id
