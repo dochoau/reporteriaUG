@@ -1,4 +1,4 @@
-create table dou_tabla_final_tiempos as
+create table analitica.dou_tabla_final_tiempos as
 
 with cruce_p as (
     select

@@ -59,14 +59,14 @@ if __name__ == "__main__":
     if conexion:
 
         #Tiempos Manufactura
-        ejecutar_consulta(conexion, "drop table if exists dou_tabla_final_tiempos")
+        ejecutar_consulta(conexion, "drop table if exists analitica.dou_tabla_final_tiempos")
         consulta = leer_query_desde_txt("manufactura1.txt")
         ejecutar_consulta(conexion,consulta)
 
         #Crea excel final
-        ejecutar_consulta_final(conexion, "SELECT * FROM dou_tabla_final_tiempos", "resultado_consulta.xlsx")
+        ejecutar_consulta_final(conexion, "SELECT * FROM analitica.dou_tabla_final_tiempos", "resultado_consulta.xlsx")
 
         #Drop de las tablas
         #ejecutar_consulta(conexion, "drop table if exists dou_tabla_final")
-
+        conexion.commit()
         conexion.close()
