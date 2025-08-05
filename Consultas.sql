@@ -21,10 +21,6 @@ Select count(*)
 from dou_tabla_final_tiempos
 where state = 'done' and tipo_producto <> 'log' and nombre_fabricante <> 'Juan Manuel Montoya Quiceno' and terminado_semana = true
 
--- Listado de Meses
-Select distinct mes_fin
-from dou_tabla_final_tiempos
-
 
 --Producción historica por tipo
 Select 

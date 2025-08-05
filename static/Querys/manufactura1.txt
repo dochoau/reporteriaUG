@@ -25,6 +25,7 @@ with cruce_p as (
     left join hr_employee t2 on t1.employee_id=t2.id
     left join product_product t3 ON t1.product_id = t3.id
     left join product_template t4 ON t3.product_tmpl_id = t4.id
+    where tipo_producto <> 'log' and  nombre_fabricante <> 'Juan Manuel Montoya Quiceno' 
 )
 select * from cruce_p
 
