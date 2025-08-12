@@ -66,7 +66,6 @@ if __name__ == "__main__":
         #Crea excel final
         ejecutar_consulta_final(conexion, "SELECT * FROM analitica.dou_tabla_final_tiempos", "resultado_consulta.xlsx")
 
-        #Drop de las tablas
-        #ejecutar_consulta(conexion, "drop table if exists dou_tabla_final")
+
         conexion.commit()
         conexion.close()

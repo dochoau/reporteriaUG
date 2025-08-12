@@ -20,12 +20,46 @@ with cruce_p as (
     t4.name->>'es_ES' as producto,
     t4.tipo_proceso as tipo_producto,
     working_hours_diff(t1.date_start_per, t1.date_finished) as horas_fabricacion,
-    working_hours_diff(t1.create_date, t1.date_start_per) as horas_crea_ini
+    working_hours_diff(t1.create_date, t1.date_start_per) as horas_crea_ini,
+    case
+        when lower(t4.name->>'es_ES') like '%base%chef%' then 'Base Chef'
+        when lower(t4.name->>'es_ES') like '%baño%maria%' then 'Baño María'
+        when lower(t4.name->>'es_ES') like '%campana%' then 'Campana'
+        when lower(t4.name->>'es_ES') like '%carcamo%' then 'Cárcamo'
+        when lower(t4.name->>'es_ES') like '%congelador%' then 'Congelador'
+        when lower(t4.name->>'es_ES') like '%escurridor%loza%' then 'Escurridor Loza'
+        when lower(t4.name->>'es_ES') like '%estacion%licuado%' then 'Estación de Licuado'
+        when lower(t4.name->>'es_ES') like '%bar%' then 'Estación de Bar'
+        when lower(t4.name->>'es_ES') like '%estanteria%industrial%' then 'Estantería industrial'
+        when lower(t4.name->>'es_ES') like '%estufa%enana%' then 'Estufa Enana' 
+        when lower(t4.name->>'es_ES') like '%estufa%' then 'Estufa'
+        when lower(t4.name->>'es_ES') like '%freidora%' then 'Freidora'
+        when lower(t4.name->>'es_ES') like '%lavado%manos%' then 'Lavado de Manos'
+        when lower(t4.name->>'es_ES') like '%mesa%auxiliar%' then 'Mesa Auxiliar'
+        when lower(t4.name->>'es_ES') like '%mesa%lavado%' then 'Mesa de Lavado' 
+        when lower(t4.name->>'es_ES') like '%mesa%isla%' then 'Mesa en Isla'
+        when lower(t4.name->>'es_ES') like '%lava%traperos%' then 'Lava Traperos'
+        when lower(t4.name->>'es_ES') like '%mesa%trabajo%' then 'Mesa de Trabajo'
+        when lower(t4.name->>'es_ES') like '%mesa%apoyo%' then 'Mesa de Apoyo'
+        when lower(t4.name->>'es_ES') like '%modulo%mixto%gas%' then 'Módulo Mixto de Cocción' 
+        when lower(t4.name->>'es_ES') like '%mueble%' then 'Mueble (Carpintería)'
+        when lower(t4.name->>'es_ES') like '%nevera%' then 'Nevera/Refrigerador'
+        when lower(t4.name->>'es_ES') like '%refrigerador%' then 'Nevera/Refrigerador'
+        when lower(t4.name->>'es_ES') like '%parrilla%' then 'Parrilla'
+        when lower(t4.name->>'es_ES') like '%plancha%' then 'Plancha'
+        when lower(t4.name->>'es_ES') like '%punto%pago%' then 'Punto de Pago'
+        when lower(t4.name->>'es_ES') like '%repisa%' then 'Repisa'
+        when lower(t4.name->>'es_ES') like '%vertical%mixta%' then 'Nevera/Refrigerador'
+        when lower(t4.name->>'es_ES') like '%vitrina%' then 'Vitrina'                         
+        when lower(t4.name->>'es_ES') like '%cava%' then 'Cava'
+        when t1.product_id = 41  then 'Freidora'
+        else 'Otro Carpintería'
+    end as familia_producto
     from mrp_production t1
     left join hr_employee t2 on t1.employee_id=t2.id
     left join product_product t3 ON t1.product_id = t3.id
     left join product_template t4 ON t3.product_tmpl_id = t4.id
-    where tipo_producto <> 'log' and  nombre_fabricante <> 'Juan Manuel Montoya Quiceno' 
+    where tipo_proceso <> 'log' and  t2.name not in ('Juan Manuel Montoya Quiceno', 'Harlizon Andres Correa')
 )
 select * from cruce_p
 
