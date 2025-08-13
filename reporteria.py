@@ -64,7 +64,12 @@ if __name__ == "__main__":
         ejecutar_consulta(conexion,consulta)
 
         #Crea excel final
-        ejecutar_consulta_final(conexion, "SELECT * FROM analitica.dou_tabla_final_tiempos", "resultado_consulta.xlsx")
+        #ejecutar_consulta_final(conexion, "SELECT * FROM analitica.dou_tabla_final_tiempos", "resultado_consulta.xlsx")
+
+        #Información Equipos Proyectos
+        ejecutar_consulta(conexion, "drop table if exists analitica.dou_resumen_equipos_proyectos")
+        consulta = leer_query_desde_txt("proyectos1.txt")
+        ejecutar_consulta(conexion,consulta)
 
 
         conexion.commit()
