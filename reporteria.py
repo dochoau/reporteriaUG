@@ -2,7 +2,8 @@ import psycopg2
 import pandas as pd
 import os
 
-RUTA= "static/Querys"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+RUTA = os.path.join(BASE_DIR, "static/Querys/")
 
 def conectar_postgres(host, puerto, base_datos, usuario, contraseña):
     try:
@@ -57,9 +58,9 @@ if __name__ == "__main__":
 
     #ETL
     if conexion:
-
         #Tiempos Manufactura
         ejecutar_consulta(conexion, "drop table if exists analitica.dou_tabla_final_tiempos")
+        
         consulta = leer_query_desde_txt("manufactura1.txt")
         ejecutar_consulta(conexion,consulta)
 
