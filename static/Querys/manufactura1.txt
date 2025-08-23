@@ -11,7 +11,9 @@ with cruce_p as (
     (t1.date_start_per >= CURRENT_DATE - INTERVAL '7 days' AND t1.date_start <= CURRENT_DATE) AS iniciado_semana,    
     t1.date_finished,
     TO_CHAR(t1.date_finished, 'YYYY-MM') AS mes_fin,
-    (t1.date_finished >= CURRENT_DATE - INTERVAL '7 days' AND t1.date_finished <= CURRENT_DATE) AS terminado_semana,      
+    (t1.date_finished >= CURRENT_DATE - INTERVAL '7 days' AND t1.date_finished <= CURRENT_DATE) AS terminado_semana,
+    (date_finished >= date_trunc('week', current_date) 
+     AND date_finished < date_trunc('week', current_date) + interval '7 days') AS terminado_esta_semana,      
     t1.create_date,
     TO_CHAR(t1.create_date, 'YYYY-MM') AS mes_creacion,
     (t1.create_date >= CURRENT_DATE - INTERVAL '7 days' AND t1.create_date <= CURRENT_DATE) AS creado_semana,                    
