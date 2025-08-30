@@ -72,6 +72,11 @@ if __name__ == "__main__":
         consulta = leer_query_desde_txt("proyectos1.txt")
         ejecutar_consulta(conexion,consulta)
 
+        #Costos Equipos fabricados
+        ejecutar_consulta(conexion, "drop table if exists analitica.dou_resumen_precios_fabricacion")
+        consulta = leer_query_desde_txt("calcula_precios.txt")
+        ejecutar_consulta(conexion,consulta)
+
 
         conexion.commit()
         conexion.close()

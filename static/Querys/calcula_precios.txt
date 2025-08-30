@@ -1,0 +1,23 @@
+create table analitica.dou_resumen_precios_fabricacion as
+with precios as (
+	select 
+	equipo,
+	AVG(precio_unitario) as precio_promedio
+	from analitica.dou_resumen_equipos_proyectos
+	group by 1
+	order by 2 desc
+), cruce as (
+	select 
+    t1.*,
+case
+    when t1.sale_line_id is not null then t3.price_subtotal
+    else t2.precio_promedio
+end as precio_estimado_equipo
+from analitica.dou_tabla_final_tiempos t1 
+left join precios t2 on t1.producto = t2.equipo
+left join sale_order_line t3 on t1.sale_line_id = t3.id
+where t1.state = 'done' 
+)
+select 
+*
+from cruce

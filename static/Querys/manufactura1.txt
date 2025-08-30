@@ -58,7 +58,8 @@ with cruce_p as (
         when lower(t4.name->>'es_ES') like '%cava%' then 'Cava'
         when t1.product_id = 41  then 'Freidora'
         else 'Otro Carpintería'
-    end as familia_producto
+    end as familia_producto,
+    sale_line_id
     from mrp_production t1
     left join hr_employee t2 on t1.employee_id=t2.id
     left join product_product t3 ON t1.product_id = t3.id
