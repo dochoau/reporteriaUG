@@ -12,7 +12,7 @@ with precios as (
 case
     when t1.sale_line_id is not null then t3.price_subtotal
     else t2.precio_promedio
-end as precio_estimado_equipo
+end as precio_promedio
 from analitica.dou_tabla_final_tiempos t1 
 left join precios t2 on t1.producto = t2.equipo
 left join sale_order_line t3 on t1.sale_line_id = t3.id
