@@ -1,6 +1,7 @@
 import psycopg2
 import pandas as pd
 import os
+from datetime import datetime
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RUTA = os.path.join(BASE_DIR, "static/Querys/")
@@ -77,6 +78,16 @@ if __name__ == "__main__":
         consulta = leer_query_desde_txt("calcula_precios.txt")
         ejecutar_consulta(conexion,consulta)
 
+        # Obtener fecha y hora actual
+        ahora = datetime.now()
 
+        # Imprimir en formato completo
+        print("Fecha y hora:", ahora)
+
+        # Solo la fecha
+        print("Fecha:", ahora.date())
+
+        # Solo la hora
+        print("Hora:", ahora.time())
         conexion.commit()
         conexion.close()
